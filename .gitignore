@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment and Secret files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+server/.env
+client/.env
+
+# Documents & Project Guide PDF
+*.pdf
+Project Demo.pdf
+
+# Local Database & Storage
+mongodb_data/
+server/mongodb_data/
+*.sqlite
+*.sqlite3
+
+# Production Build outputs
+dist/
+dist-ssr/
+build/
+client/dist/
+client/dist-ssr/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor & IDE directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Testing & Coverage
+coverage/
+.nyc_output/
+
+# Cache directories
+.cache/
+.eslintcache
+
