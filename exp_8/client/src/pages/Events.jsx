@@ -12,7 +12,7 @@ function Events() {
     async function loadEvents() {
       try {
         const data = await getEvents();
-        setEvents(data);
+        setEvents(Array.isArray(data) ? data : (data.events || []));
       } catch (err) {
         setError(err.message || "Unable to load events");
       } finally {

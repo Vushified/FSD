@@ -13,10 +13,20 @@ const registrationRoutes = require("./routes/registrationRoutes");
 
 const app = express();
 
-const allowedOrigin =
-  process.env.CLIENT_ORIGIN || "http://localhost:5173";
+const allowedOrigin = process.env.CLIENT_ORIGIN || "*";
 
-app.use(cors({ origin: allowedOrigin }));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow all origins if wildcard or matching
+      if (!origin || allowedOrigin === "*" || allowedOrigin.split(",").map((s) => s.trim()).includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "100kb" }));
 
 app.get("/", (req, res) => {
@@ -46,7 +56,7 @@ const server = http.createServer(app);
 // Attach Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigin,
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });

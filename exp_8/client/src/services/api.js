@@ -1,3 +1,5 @@
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+
 async function apiRequest(path, options = {}) {
   const token = localStorage.getItem("eventHubToken");
 
@@ -7,12 +9,23 @@ async function apiRequest(path, options = {}) {
     ...options.headers,
   };
 
-  const response = await fetch(`/api${path}`, {
+  const url = API_BASE_URL ? `${API_BASE_URL}/api${path}` : `/api${path}`;
+
+  const response = await fetch(url, {
     ...options,
     headers,
   });
 
-  const data = await response.json().catch(() => ({}));
+  const contentType = response.headers.get("content-type") || "";
+  let data = {};
+
+  if (contentType.includes("application/json")) {
+    data = await response.json().catch(() => ({}));
+  } else {
+    throw new Error(
+      `Server returned ${response.status} (non-JSON). Please verify VITE_API_URL points to your live Render backend.`
+    );
+  }
 
   if (!response.ok) {
     throw new Error(data.message || "Request failed");
