@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "f8a93102-192a-4b72-a081-081974129032",
+		"name": "Event Management System - Experiment 7",
+		"description": "Real-Time Event Notifications using WebSockets and Socket.IO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Server Health Check (GET)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"health"
+					]
+				},
+				"description": "Verifies that the server and Socket.IO are active"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Admin Login (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"TestPass123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Login as Admin to obtain JWT token for triggering real-time notifications"
+			},
+			"response": []
+		},
+		{
+			"name": "3. Admin Create Event (Triggers event:created)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer PASTE_ADMIN_JWT_HERE"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Hackathon 2026\",\n  \"description\": \"24-hour national student hackathon.\",\n  \"date\": \"2026-12-20\",\n  \"time\": \"09:00\",\n  \"location\": \"Innovation Center\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"events"
+					]
+				},
+				"description": "Creates an event in MongoDB and broadcasts 'event:created' notification via Socket.IO"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Admin Update Event (Triggers event:updated)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer PASTE_ADMIN_JWT_HERE"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Hackathon 2026 (Updated Schedule)\",\n  \"description\": \"24-hour national student hackathon with keynote speakers.\",\n  \"date\": \"2026-12-21\",\n  \"time\": \"10:00\",\n  \"location\": \"Main Auditorium\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/events/PASTE_EVENT_ID_HERE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"events",
+						"PASTE_EVENT_ID_HERE"
+					]
+				},
+				"description": "Updates an event in MongoDB and broadcasts 'event:updated' notification via Socket.IO"
+			},
+			"response": []
+		},
+		{
+			"name": "5. Admin Delete Event (Triggers event:deleted)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer PASTE_ADMIN_JWT_HERE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/events/PASTE_EVENT_ID_HERE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"events",
+						"PASTE_EVENT_ID_HERE"
+					]
+				},
+				"description": "Deletes an event from MongoDB and broadcasts 'event:deleted' notification via Socket.IO"
+			},
+			"response": []
+		},
+		{
+			"name": "6. Public GET All Events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"events"
+					]
+				},
+				"description": "Retrieve all events from MongoDB (200 OK)"
+			},
+			"response": []
+		}
+	]
+}
+
