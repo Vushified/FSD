@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  server:
+    build: ./server
+    container_name: eventhub-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - CLIENT_ORIGIN=http://localhost:5173
+      - MONGODB_URI=mongodb+srv://vidushisingh883_db_user:wkyJIWNDtOeEfbTB@cluster0.75j8bsx.mongodb.net/eventhub?retryWrites=true&w=majority
+      - JWT_SECRET=f7e34c98c199834d8ef0b3d88194a5c0b72e5a40b8a21e64d3e8e2c7a10f845d654b9812e9821a7194639e83
+      - JWT_EXPIRES_IN=1d
+    restart: always
+
+  client:
+    build: ./client
+    container_name: eventhub-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    restart: always
+
