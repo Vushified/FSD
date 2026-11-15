@@ -4,7 +4,9 @@ client/node_modules/
 server/node_modules/
 
 # Environment and Secret files
+*.env
 .env
+.env.*
 .env.local
 .env.*.local
 .env.development
