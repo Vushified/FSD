@@ -6,6 +6,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const eventRoutes = require("./routes/eventRoutes");
 const authRoutes = require("./routes/authRoutes");
+const profileRoutes = require("./routes/profileRoutes");
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.get("/", (req, res) => {
 
 // Authentication endpoints
 app.use("/api/auth", authRoutes);
+
+// Profile endpoints (IDOR vulnerability assessment)
+app.use("/api/profiles", profileRoutes);
 
 // Existing event endpoints
 app.use("/api/events", eventRoutes);

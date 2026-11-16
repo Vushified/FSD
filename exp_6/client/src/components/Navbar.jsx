@@ -53,6 +53,12 @@ function Navbar() {
                 </Link>
               )}
               <Link
+                to="/profile"
+                className="transition hover:text-indigo-400"
+              >
+                Profile
+              </Link>
+              <Link
                 to="/my-registrations"
                 className="transition hover:text-indigo-400"
               >
@@ -122,6 +128,12 @@ function Navbar() {
                     Admin Dashboard
                   </Link>
                 )}
+                <Link
+                  to="/profile"
+                  onClick={closeMenu}
+                >
+                  Profile
+                </Link>
                 <Link
                   to="/my-registrations"
                   onClick={closeMenu}

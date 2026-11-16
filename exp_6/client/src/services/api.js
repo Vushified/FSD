@@ -46,3 +46,8 @@ export function loginUser(credentials) {
 export function getCurrentUser() {
   return apiRequest("/auth/me");
 }
+
+// Fetch user profile by ID (Step 2 & 3: IDOR assignment endpoint)
+export function getProfile(id) {
+  return apiRequest(`/profiles/${id}`);
+}
