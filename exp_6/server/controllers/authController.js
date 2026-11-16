@@ -59,6 +59,7 @@ async function registerUser(req, res) {
       token,
       user: {
         id: user._id,
+        _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -124,6 +125,7 @@ async function loginUser(req, res) {
       token,
       user: {
         id: user._id,
+        _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -144,6 +146,7 @@ function getCurrentUser(req, res) {
   return res.status(200).json({
     user: {
       id: req.user._id,
+      _id: req.user._id,
       name: req.user.name,
       email: req.user.email,
       role: req.user.role,
